@@ -95,6 +95,13 @@ namespace App2.Droid
                                                 null, true);
 
                 Auth.Completed += OnGoogleAuthCompleted;
+                Auth.Error += (s, e) =>
+                {
+                    var alertBuilder = new AlertDialog.Builder(this);
+                    alertBuilder.SetTitle(e.Message);
+                    alertBuilder.SetMessage(e.Exception.ToString());
+                    alertBuilder.Create().Show();
+                };
 
                 var intent = Auth.GetUI(this);
                 StartActivity(intent);
