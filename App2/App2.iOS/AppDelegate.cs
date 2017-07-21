@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using System;
 using UIKit;
 
 namespace App2.iOS
@@ -52,7 +53,18 @@ namespace App2.iOS
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
-	}
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            var uri_netfx = new Uri(url.AbsoluteString);
+
+            // load redirect_url Page for parsing
+            ViewController.Auth2.OnPageLoading(uri_netfx);
+
+            return true;
+        }
+    }
 }
 
 
