@@ -92,8 +92,11 @@ namespace App2.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060002
+			public const int facebookButton = 2131099650;
+			
 			// aapt resource value: 0x7f060001
-			public const int myButton = 2131099649;
+			public const int googleButton = 2131099649;
 			
 			// aapt resource value: 0x7f060000
 			public const int webview = 2131099648;
@@ -136,11 +139,14 @@ namespace App2.Droid
 			// aapt resource value: 0x7f050001
 			public const int Hello = 2131034113;
 			
+			// aapt resource value: 0x7f050005
+			public const int app_name = 2131034117;
+			
 			// aapt resource value: 0x7f050004
-			public const int app_name = 2131034116;
+			public const int facebook = 2131034116;
 			
 			// aapt resource value: 0x7f050003
-			public const int hello = 2131034115;
+			public const int google = 2131034115;
 			
 			// aapt resource value: 0x7f050000
 			public const int title_activity_webview = 2131034112;

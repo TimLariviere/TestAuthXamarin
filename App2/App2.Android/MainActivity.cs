@@ -9,8 +9,6 @@ namespace App2.Droid
     [Activity (Label = "App2.Android", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
-		int count = 1;
-
         public static OAuth2Authenticator Auth2;
 
         protected override void OnCreate (Bundle bundle)
@@ -20,12 +18,43 @@ namespace App2.Droid
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
-			// Get our button from the layout resource,
-			// and attach an event to it
-			Button button = FindViewById<Button> (Resource.Id.myButton);
-			
-			button.Click += delegate {
+            SetupGoogle();
+            SetupFacebook();
+		}
 
+        private void SetupFacebook()
+        {
+            var facebookButton = FindViewById<Button>(Resource.Id.facebookButton);
+
+            facebookButton.Click += delegate {
+
+                Auth2 = new OAuth2Authenticator("990519181055992", "email",
+                                                new Uri("https://www.facebook.com/v2.0/dialog/oauth/"),
+                                                new Uri("http://www.facebook.com/connect/login_success.html"),
+                                                null, false);
+
+                Auth2.Completed += OnFacebookAuthCompleted;
+
+                var intent = Auth2.GetUI(this);
+                StartActivity(intent);
+
+            };
+        }
+
+        private async void OnFacebookAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            var facebookService = new FacebookService();
+            var email = await facebookService.GetEmailAsync(e.Account.Properties["access_token"]);
+
+            var facebookButton = FindViewById<Button>(Resource.Id.facebookButton);
+            facebookButton.Text = email;
+        }
+
+        private void SetupGoogle()
+        {
+            var googleButton = FindViewById<Button>(Resource.Id.googleButton);
+
+            googleButton.Click += delegate {
 
                 Auth2 = new OAuth2Authenticator("742705120071-bep44ot1uchpo1mlhhcr242kh84ehgb1.apps.googleusercontent.com", "", "https://www.googleapis.com/auth/userinfo.email",
                                                 new Uri("https://accounts.google.com/o/oauth2/v2/auth"),
@@ -33,21 +62,21 @@ namespace App2.Droid
                                                 new Uri("https://www.googleapis.com/oauth2/v4/token"),
                                                 null, true);
 
-                Auth2.Completed += Auth2_Completed;
+                Auth2.Completed += OnGoogleAuthCompleted;
 
                 var intent = Auth2.GetUI(this);
                 StartActivity(intent);
 
-			};
-		}
+            };
+        }
 
-        private async void Auth2_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        private async void OnGoogleAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
             var googleService = new GoogleService();
             var email = await googleService.GetEmailAsync(e.Account.Properties["token_type"], e.Account.Properties["access_token"]);
 
-            Button button = FindViewById<Button>(Resource.Id.myButton);
-            button.Text = email;
+            var googleButton = FindViewById<Button>(Resource.Id.googleButton);
+            googleButton.Text = email;
         }
     }
 }

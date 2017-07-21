@@ -31,6 +31,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FacebookEmail.cs" />
+    <Compile Include="FacebookService.cs" />
     <Compile Include="GoogleEmail.cs" />
     <Compile Include="GoogleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
