@@ -98,6 +98,9 @@ namespace App2.Droid
 			// aapt resource value: 0x7f060001
 			public const int googleButton = 2131099649;
 			
+			// aapt resource value: 0x7f060003
+			public const int twitterButton = 2131099651;
+			
 			// aapt resource value: 0x7f060000
 			public const int webview = 2131099648;
 			
@@ -139,8 +142,8 @@ namespace App2.Droid
 			// aapt resource value: 0x7f050001
 			public const int Hello = 2131034113;
 			
-			// aapt resource value: 0x7f050005
-			public const int app_name = 2131034117;
+			// aapt resource value: 0x7f050006
+			public const int app_name = 2131034118;
 			
 			// aapt resource value: 0x7f050004
 			public const int facebook = 2131034116;
@@ -150,6 +153,9 @@ namespace App2.Droid
 			
 			// aapt resource value: 0x7f050000
 			public const int title_activity_webview = 2131034112;
+			
+			// aapt resource value: 0x7f050005
+			public const int twitter = 2131034117;
 			
 			static String()
 			{

@@ -45,7 +45,7 @@ namespace App2.Droid
             Uri uri_netfx = new Uri(uri_android.ToString());
 
             // load redirect_url Page
-            MainActivity.Auth2?.OnPageLoading(uri_netfx);
+            MainActivity.Auth?.OnPageLoading(uri_netfx);
 
             this.Finish();
 

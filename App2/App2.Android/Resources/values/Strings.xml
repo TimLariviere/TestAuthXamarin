@@ -2,5 +2,6 @@
 <resources>
   <string name="google">Connect using Google</string>
   <string name="facebook">Connect using Facebook</string>
+  <string name="twitter">Connect using Twitter</string>
 	<string name="app_name">App2.Android</string>
 </resources>

@@ -22,6 +22,10 @@ namespace App2.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton GoogleButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton TwitterButton { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (FacebookButton != null) {
@@ -32,6 +36,11 @@ namespace App2.iOS
             if (GoogleButton != null) {
                 GoogleButton.Dispose ();
                 GoogleButton = null;
+            }
+
+            if (TwitterButton != null) {
+                TwitterButton.Dispose ();
+                TwitterButton = null;
             }
         }
     }

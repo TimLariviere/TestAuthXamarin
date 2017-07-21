@@ -13,4 +13,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/facebook" />
+  <Button
+      android:id="@+id/twitterButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/twitter" />
 </LinearLayout>

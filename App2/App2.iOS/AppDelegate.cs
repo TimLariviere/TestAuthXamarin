@@ -60,7 +60,7 @@ namespace App2.iOS
             var uri_netfx = new Uri(url.AbsoluteString);
 
             // load redirect_url Page for parsing
-            ViewController.Auth2.OnPageLoading(uri_netfx);
+            ViewController.Auth.OnPageLoading(uri_netfx);
 
             return true;
         }

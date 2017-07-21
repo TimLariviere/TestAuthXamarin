@@ -7,7 +7,7 @@ namespace App2.iOS
 {
 	public partial class ViewController : UIViewController
 	{
-        public static OAuth2Authenticator Auth2 = null;
+        public static WebAuthenticator Auth = null;
 
 		public ViewController (IntPtr handle) : base (handle)
 		{
@@ -19,20 +19,49 @@ namespace App2.iOS
 
             SetupGoogle();
             SetupFacebook();
+            SetupTwitter();
+        }
+
+        private void SetupTwitter()
+        {
+            TwitterButton.TouchUpInside += delegate {
+
+                Auth = new OAuth1Authenticator("6ozsrJfgvSe58Pl45MLk65PfH", "tneY3Wf4hxpFM8UpuSvw9bhy6P9vF11KUS731Suk2xmkGPUZgB",
+                                                new Uri("https://api.twitter.com/oauth/request_token"),
+                                                new Uri("https://api.twitter.com/oauth/authorize"),
+                                                new Uri("https://api.twitter.com/oauth/access_token"),
+                                                new Uri("https://mobile.twitter.com"),
+                                                null, false);
+
+                Auth.Completed += OnTwitterAuthCompleted;
+
+                var viewController = Auth.GetUI();
+                PresentViewController(viewController, true, null);
+            };
+        }
+
+        private async void OnTwitterAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            this.DismissViewController(true, null);
+
+            var twitterService = new TwitterService();
+            var email = await twitterService.GetEmailAsync("6ozsrJfgvSe58Pl45MLk65PfH", "tneY3Wf4hxpFM8UpuSvw9bhy6P9vF11KUS731Suk2xmkGPUZgB", e.Account.Properties["oauth_token"], e.Account.Properties["oauth_token_secret"]);
+            
+            TwitterButton.SetTitle(email, UIControlState.Normal);
         }
 
         private void SetupFacebook()
         {
             FacebookButton.TouchUpInside += delegate {
 
-                Auth2 = new OAuth2Authenticator("990519181055992", "email",
+                Auth = new OAuth2Authenticator("990519181055992", "email",
                                                 new Uri("https://www.facebook.com/v2.0/dialog/oauth/"),
                                                 new Uri("http://www.facebook.com/connect/login_success.html"),
                                                 null, false);
 
-                Auth2.Completed += OnFacebookAuthCompleted;
+                Auth.Completed += OnFacebookAuthCompleted;
 
-                var viewController = Auth2.GetUI();
+                var viewController = Auth.GetUI();
                 PresentViewController(viewController, true, null);
             };
         }
@@ -51,15 +80,15 @@ namespace App2.iOS
         {
             GoogleButton.TouchUpInside += delegate {
 
-                Auth2 = new OAuth2Authenticator("742705120071-hkdhvr100f26g8agacuqm54a924eblf9.apps.googleusercontent.com", "", "https://www.googleapis.com/auth/userinfo.email",
+                Auth = new OAuth2Authenticator("742705120071-hkdhvr100f26g8agacuqm54a924eblf9.apps.googleusercontent.com", "", "https://www.googleapis.com/auth/userinfo.email",
                                                 new Uri("https://accounts.google.com/o/oauth2/v2/auth"),
                                                 new Uri("org.amffrance.finquiz:/oauth2redirect"),
                                                 new Uri("https://www.googleapis.com/oauth2/v4/token"),
                                                 null, true);
 
-                Auth2.Completed += OnGoogleAuthCompleted;
+                Auth.Completed += OnGoogleAuthCompleted;
 
-                var viewController = Auth2.GetUI();
+                var viewController = Auth.GetUI();
                 PresentViewController(viewController, true, null);
             };
         }
